@@ -21,9 +21,16 @@ class Album
     #[ORM\OneToMany(mappedBy: 'album', targetEntity: Generique::class)]
     private Collection $generiques;
 
+    #[ORM\ManyToOne(inversedBy: 'albums')]
+    private ?Member $member = null;
+
     public function __construct()
     {
         $this->generiques = new ArrayCollection();
+    }
+    
+    public function __toString() {
+        return $this->description;
     }
 
     public function getId(): ?int
@@ -69,6 +76,18 @@ class Album
                 $generique->setAlbum(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getMember(): ?Member
+    {
+        return $this->member;
+    }
+
+    public function setMember(?Member $member): static
+    {
+        $this->member = $member;
 
         return $this;
     }
