@@ -30,6 +30,10 @@ class Generique
 
     #[ORM\ManyToOne(inversedBy: 'generiques')]
     private ?Album $album = null;
+    
+    public function __toString() {
+        return $this->anime." ".$this->type." ".$this->numero;
+    }
 
     public function getId(): ?int
     {

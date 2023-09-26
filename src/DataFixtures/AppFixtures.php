@@ -14,7 +14,7 @@ class AppFixtures extends Fixture
     private const ALBUM_MAXIME_1 = 'maxime-album-1';
 
     /**
-     * Generates initialization data for racks : [title]
+     * Generates initialization data for album : [description]
      * @return \\Generator
      */
     private static function albumDataGenerator()
@@ -24,7 +24,7 @@ class AppFixtures extends Fixture
     }
 
     /**
-     * Generates initialization data for film recommendations:
+     * Generates initialization data for generique recommendations:
      *  [film_title, film_year, recommendation]
      * @return \\Generator
      */

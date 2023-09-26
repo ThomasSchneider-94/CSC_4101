@@ -2,28 +2,26 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Generique;
+use App\Entity\Member;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 
-class GeneriqueCrudController extends AbstractCrudController
+class MemberCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {
-        return Generique::class;
+        return Member::class;
     }
 
     public function configureFields(string $pageName): iterable
     {
         return [
             IdField::new('id')->hideOnForm(),
-            TextField::new('titre'),
-            TextField::new('artiste'),
-            TextField::new('anime'),
-            TextField::new('type'),
-            IntegerField::new('numero'),
+            TextField::new('nom'),
+            TextField::new('description'),
+            AssociationField::new('albums'),
         ];
     }
 }
