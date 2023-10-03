@@ -13,26 +13,26 @@ class Generique
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $titre = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $artiste = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $type = null;
-
-    #[ORM\Column (nullable: true)]
-    private ?int $numero = null;
-
     #[ORM\Column(length: 255)]
     private ?string $anime = null;
+    
+    #[ORM\Column(length: 255)]
+    private ?string $type = null;
+    
+    #[ORM\Column]
+    private ?int $numero = null;
+    
+    #[ORM\Column(length: 255)]
+    private ?string $titre = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $artiste = null;
 
     #[ORM\ManyToOne(inversedBy: 'generiques')]
     private ?Album $album = null;
     
     public function __toString() {
-        return $this->anime." ".$this->type." ".$this->numero;
+        return $this->anime." - ".$this->type." ".$this->numero;
     }
 
     public function getId(): ?int
@@ -40,6 +40,46 @@ class Generique
         return $this->id;
     }
 
+    /* Gestion de l'animé */
+    public function getAnime(): ?string
+    {
+        return $this->anime;
+    }
+    
+    public function setAnime(string $anime): static
+    {
+        $this->anime = $anime;
+        
+        return $this;
+    }
+    
+    /* Gestion du type de générique */
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+    
+    public function setType(string $type): static
+    {
+        $this->type = $type;
+        
+        return $this;
+    }
+    
+    /* Gestion du numéro du générique */
+    public function getNumero(): ?int
+    {
+        return $this->numero;
+    }
+    
+    public function setNumero(int $numero): static
+    {
+        $this->numero = $numero;
+        
+        return $this;
+    }
+    
+    /* Gestion du titre de la musique */
     public function getTitre(): ?string
     {
         return $this->titre;
@@ -52,6 +92,7 @@ class Generique
         return $this;
     }
 
+    /* Gestion de l'artiste de la musique */
     public function getArtiste(): ?string
     {
         return $this->artiste;
@@ -64,42 +105,7 @@ class Generique
         return $this;
     }
 
-    public function getType(): ?string
-    {
-        return $this->type;
-    }
-
-    public function setType(string $type): static
-    {
-        $this->type = $type;
-
-        return $this;
-    }
-
-    public function getNumero(): ?int
-    {
-        return $this->numero;
-    }
-
-    public function setNumero(int $numero): static
-    {
-        $this->numero = $numero;
-
-        return $this;
-    }
-
-    public function getAnime(): ?string
-    {
-        return $this->anime;
-    }
-
-    public function setAnime(string $anime): static
-    {
-        $this->anime = $anime;
-
-        return $this;
-    }
-
+    /* Gestion de l'album */
     public function getAlbum(): ?Album
     {
         return $this->album;

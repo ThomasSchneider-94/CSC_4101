@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+      <h1>ALBUM</h1>
+
+         {% dump album %}
+
+      <table class="table">
+          <tbody>
+              <tr>
+                  <th>Id</th>
+                  <td>{{ album.id }}</td>
+              </tr>
+              <tr>
+                  <th>Description</th>
+                  <td>{{ album.description }}</td>
+              </tr>
+              <tr>
+                  <th>Propriétaire</th>
+                  <td>{{ album.member }}</td>
+              </tr>        
+              {% for generique in album.generiques %}
+	              <tr>
+	                  <th> {{ loop.first ? "Liste des génériques" : "" }} </th>
+	                  <td><li><a href="{{ path('generique_show', {'id': generique.id}) }}">{{ generique }}</a></li></td>
+	              </tr>
+              {% endfor %} {# album #}
+          </tbody>
+      </table>
+
+      <a href="{{ path('album_index') }}">Retour à la liste des albums</a>
+
+{% endblock %} {# body #}

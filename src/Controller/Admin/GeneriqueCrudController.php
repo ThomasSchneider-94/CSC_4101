@@ -19,11 +19,11 @@ class GeneriqueCrudController extends AbstractCrudController
     {
         return [
             IdField::new('id')->hideOnForm(),
-            TextField::new('titre'),
-            TextField::new('artiste'),
             TextField::new('anime'),
             TextField::new('type'),
             IntegerField::new('numero'),
+            TextField::new('titre'),
+            TextField::new('artiste'),
         ];
     }
 }

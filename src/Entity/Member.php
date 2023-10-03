@@ -17,9 +17,12 @@ class Member
 
     #[ORM\Column(length: 255)]
     private ?string $nom = null;
-
+    
+    #[ORM\Column(length: 255)]
+    private ?string $prenom = null;
+    
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $description = null;
+    private ?string $pseudo = null;
 
     #[ORM\OneToMany(mappedBy: 'member', targetEntity: Album::class)]
     private Collection $albums;
@@ -28,12 +31,17 @@ class Member
     {
         $this->albums = new ArrayCollection();
     }
+    
+    public function __toString() {
+        return $this->getPseudo();
+    }
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /* Gestion du nom */
     public function getNom(): ?string
     {
         return $this->nom;
@@ -46,19 +54,40 @@ class Member
         return $this;
     }
 
-    public function getDescription(): ?string
+    /* Gestion du prenom */
+    public function getPrenom(): ?string
     {
-        return $this->description;
+        return $this->prenom;
     }
-
-    public function setDescription(?string $description): static
+    
+    public function setPrenom(string $prenom): static
     {
-        $this->description = $description;
-
+        $this->prenom = $prenom;
+        
+        return $this;
+    }
+    
+    /* Gestion du pseudo */
+    public function getPseudo(): ?string
+    {
+        if ($this->pseudo == null)
+        {
+            return $this->nom . " " . $this->prenom;
+        }
+        else 
+        {
+            return $this->pseudo;
+        }
+    }
+    
+    public function setPseudo(string|null $pseudo): static
+    {
+        $this->pseudo = $pseudo;
+        
         return $this;
     }
 
-    /**
+    /** Gestion des collections
      * @return Collection<int, Album>
      */
     public function getAlbums(): Collection

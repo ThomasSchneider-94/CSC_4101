@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+      <h1>GENERIQUE</h1>
+
+         {% dump generique %}
+
+      <table class="table">
+          <tbody>
+              <tr>
+                  <th>Id</th>
+                  <td>{{ generique.id }}</td>
+              </tr>
+              <tr>
+                  <th>Animé</th>
+                  <td>{{ generique.anime }}</td>
+              </tr>
+              <tr>
+                  <th>N°</th>
+                  <td>{{ generique.type }} {{ generique.numero }}</td>
+              </tr>
+              <tr>
+                  <th>Titre</th>
+                  <td>{{ generique.titre }}</td>
+              </tr>
+              <tr>
+                  <th>Artiste</th>
+                  <td>{{ generique.artiste }}</td>
+              </tr>
+              <tr>
+                  <th>Album</th>
+                  <td><a href="{{ path('album_show', {'id': generique.album.id}) }}">{{ generique.album }}</a></td>
+              </tr>
+              <tr>
+                  <th>Propriétaire</th>
+                  <td>{{ generique.album.member }}</td>
+              </tr>
+          </tbody>
+      </table>
+      
+      <a href="{{ path('album_show', {'id': generique.album.id}) }}">Retour à l'inventaire</a>
+
+{% endblock %} {# body #}
