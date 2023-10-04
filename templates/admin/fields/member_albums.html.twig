@@ -2,7 +2,7 @@
   <ul>
 {% for album in field.value %}
   {%- set url = ea_url()
-    .setController('App\\Controller\\Admin\\albumCrudController')
+    .setController('App\\Controller\\Admin\\AlbumCrudController')
     .setAction('detail')
     .setEntityId(album.id)
   -%}

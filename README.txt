@@ -1,31 +1,74 @@
-Gestion de collection de génériques d'animé japonais
+CSC 4101 - Architectures et applications web
+SCHNEIDER Thomas
+
+Projet de gestion de collection de génériques d'animé japonais
+
+
+		 ————————
+		| OBJETS |
+		 ————————
 
 [objet]			generique
 [inventaire]		album
 [galerie]		playlist
-
-Propiété de generique
-Propriété	Type		Contraintes		Commentaire
-titre		String		notnull			Titre de la musique
-artiste         String          notnull                 Artiste de la musique
-anime		String		notnull			Animé d'où est tiré le générique
-type		String		notnull&"OP" ou "ED	""Opening" ou "Ending"
-numero		int		notnull			Numéro du générique
+[utilisateur]		member
 
 
-Propriété d'album
-Propriété       Type            Contraintes             Commentaire
-nom		String		notnull
+ _______________________
+| Propiété de generique |
+ ———————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+| Propriété	| Type		| Contraintes			| Commentaire						|
+ -----------------------------------------------------------------------------------------------------------------------
+| anime		| String	| notnull			| Animé d'où est tiré le générique			|
+ -----------------------------------------------------------------------------------------------------------------------
+| type		| String	| notnull & "OP" ou "ED" 	| Indique si il s'agit d'un opening (OP) ou ending (ED)	|
+ -----------------------------------------------------------------------------------------------------------------------
+| numero	| int		| notnull			| Numéro du générique					|
+ -----------------------------------------------------------------------------------------------------------------------
+| titre		| String	| notnull			| Titre de la musique					|
+ -----------------------------------------------------------------------------------------------------------------------
+| artiste	| String	| notnull			| Artiste de la musique					|
+ -----------------------------------------------------------------------------------------------------------------------
+| album		| Album		| 				| Album contenant le générique				|
+ ———————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+
+
+ __________________
+| Propiété d'album |
+ ———————————————————————————————————————————————————————————————————————————————————————————————————————————————
+| Propriété	| Type				| Contraintes		| Commentaire				|
+ ---------------------------------------------------------------------------------------------------------------
+| nom		| String			| notnull		| Nom de l'album			|
+ ---------------------------------------------------------------------------------------------------------------
+| member	| Member 			| notnull		| Propriétaire de l'album		|
+ ---------------------------------------------------------------------------------------------------------------
+| generiques	| Collection[Generique]		| 			| Collection des génériques de l'album	|
+ ———————————————————————————————————————————————————————————————————————————————————————————————————————————————
+
+
+ ____________________
+| Propiété de member |
+ ———————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+| Propriété	| Type				| Contraintes		| Commentaire					|
+ -----------------------------------------------------------------------------------------------------------------------
+| nom		| String			| notnull		| Nom de l'utilisateur				|
+ -----------------------------------------------------------------------------------------------------------------------
+| prenom	| String			| notnull		| Prenom de l'utilisateur			|
+ -----------------------------------------------------------------------------------------------------------------------
+| pseudo	| String			|			| Pseudo de l'utilisateur			|
+ -----------------------------------------------------------------------------------------------------------------------
+| albums	| Collection[Album]		|			| Collection des albums de l'utilisateur	|
+ ———————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 
 
 
-Propriété de member
-Propriété       Type            Contraintes             Commentaire
-nom		String		notnull
-prenom		String          notnull
-pseudo		String
 
-
-Associations
-album	(1) --- (0..n)	generique
-member	(1) --- (0..n)	album
+ ________________
+| Associations	 |
+ ———————————————————————————————————————————————————————————————————————————————————————————————————————————————
+| Entité 1	| Type				| Entité 2	| Commentaire					|
+ ---------------------------------------------------------------------------------------------------------------
+| album		| (1) --- (0..n)		| generique	| Un album contient plusieurs générique		|
+ ---------------------------------------------------------------------------------------------------------------
+| member	| (1) --- (0..n)		| album		| Un utilisateur peut avoir plusieurs albums	|
+ ———————————————————————————————————————————————————————————————————————————————————————————————————————————————

@@ -2,7 +2,7 @@
   <ul>
 {% for generique in field.value %}
   {%- set url = ea_url()
-    .setController('App\\Controller\\Admin\\generiqueCrudController')
+    .setController('App\\Controller\\Admin\\GeneriqueCrudController')
     .setAction('detail')
     .setEntityId(generique.id)
   -%}

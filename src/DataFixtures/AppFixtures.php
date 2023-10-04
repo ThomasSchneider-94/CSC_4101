@@ -43,9 +43,11 @@ class AppFixtures extends Fixture
     private static function generiqueGenerator()
     {
         yield [self::ALBUM_THOMAS_1, "Oshi no Ko", "OP", 1,"Idol", "Yoasobi"];
-        yield [self::ALBUM_THOMAS_1, "Da Wang Rao Ming", "OP", 1 , "C'est chinois", "Jsp"];
-        yield [self::ALBUM_MAXIME_1, "Assassination Classroom", "ED", 4 , "Bye bye Yesterday", "3-nen E-gatsu"];
-        yield [self::ALBUM_MAXIME_2, "Sword Art Oneline", "OP" , 3, "Ignite", "Lisa (non)"];
+        yield [self::ALBUM_THOMAS_1, "Link Click", "ED", 1 , "Overthink", "Fan-Ka"];
+        yield [self::ALBUM_THOMAS_1, "Time Shadows", "OP", 2 , "Natsuyume Noisy", "Asaka"];        
+        yield [self::ALBUM_MAXIME_1, "Assassination Classroom", "OP", 4 , "Bye bye Yesterday", "3-nen E-gumi Utatan"];
+        yield [self::ALBUM_MAXIME_2, "Mob Psycho 100", "OP" , 1, "99", "Mob Choir"];
+        yield [self::ALBUM_MAXIME_2, "Vinland Saga", "ED" , 3, "Without Love", "LMYK"];
     }
     
 
