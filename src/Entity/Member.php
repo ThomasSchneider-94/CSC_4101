@@ -33,7 +33,14 @@ class Member
     }
     
     public function __toString() {
-        return $this->getPseudo();
+        if ($this->pseudo == null)
+        {
+            return $this->nom . " " . $this->prenom;
+        }
+        else
+        {
+            return $this->pseudo;
+        }
     }
 
     public function getId(): ?int
@@ -70,14 +77,7 @@ class Member
     /* Gestion du pseudo */
     public function getPseudo(): ?string
     {
-        if ($this->pseudo == null)
-        {
-            return $this->nom . " " . $this->prenom;
-        }
-        else 
-        {
-            return $this->pseudo;
-        }
+        return $this->pseudo;
     }
     
     public function setPseudo(string|null $pseudo): static

@@ -18,7 +18,7 @@ class AppFixtures extends Fixture
     private const THOMAS = 'thomas';
     private const MAXIME = 'maxime';
     /**
-     * Generates initialization data for album : [description]
+     * Generates initialization data for album : [nom]
      * @return \\Generator
      */
     
@@ -64,10 +64,10 @@ class AppFixtures extends Fixture
             $this->addReference($memberReference, $member);
         }
         
-        foreach (self::albumDataGenerator() as [$memberReference, $description, $albumReference] )
+        foreach (self::albumDataGenerator() as [$memberReference, $nom, $albumReference] )
         {
             $album = new Album();
-            $album->setDescription($description);
+            $album->setNom($nom);
             $member = $this->getReference($memberReference);
             $member->addAlbum($album);
             $manager->persist($album);

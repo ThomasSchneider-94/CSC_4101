@@ -61,9 +61,16 @@ class Generique
     
     public function setType(string $type): static
     {
-        $this->type = $type;
-        
-        return $this;
+        if ($type != "OP" && $type != "ED")
+        {
+            trigger_error('"Type" ne peut prendre que les valeurs "OP" ou "ED"', E_USER_ERROR);
+        }
+        else
+        {
+            $this->type = $type;
+            
+            return $this;
+        }
     }
     
     /* Gestion du numéro du générique */

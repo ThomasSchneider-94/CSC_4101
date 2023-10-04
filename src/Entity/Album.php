@@ -16,7 +16,7 @@ class Album
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $description = null;
+    private ?string $nom = null;
     
     #[ORM\ManyToOne(inversedBy: 'albums')]
     private ?Member $member = null;
@@ -30,7 +30,7 @@ class Album
     }
     
     public function __toString() {
-        return $this->description;
+        return $this->nom;
     }
 
     public function getId(): ?int
@@ -38,15 +38,15 @@ class Album
         return $this->id;
     }
 
-    /* Gestion de la description */
-    public function getDescription(): ?string
+    /* Gestion du nom */
+    public function getNom(): ?string
     {
-        return $this->description;
+        return $this->nom;
     }
 
-    public function setDescription(string $description): static
+    public function setNom(string $nom): static
     {
-        $this->description = $description;
+        $this->nom = $nom;
 
         return $this;
     }

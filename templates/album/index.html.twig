@@ -9,7 +9,7 @@
     <thead>
         <tr>
             <th>Id</th>
-            <th>Description</th>
+            <th>Nom</th>
             <th>Propriétaire</th>
             <th>Nombre de génériques</th>
         </tr>
@@ -18,7 +18,7 @@
 		{% for album in albums %}
         <tr>
             <td>{{ album.id }}</td>
-            <td><a href="{{ path('album_show', {'id': album.id}) }}">{{ album.description }}</a></td>
+            <td><a href="{{ path('album_show', {'id': album.id}) }}">{{ album.nom }}</a></td>
             <td>{{ album.member }}</td>
             <td>{{ album.generiques|length }}</td>
         </tr>
