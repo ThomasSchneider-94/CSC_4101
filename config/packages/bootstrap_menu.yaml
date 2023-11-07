@@ -1,0 +1,7 @@
+bootstrap_menu:
+  menus:
+    main:
+      items:
+        albums:
+          label: 'Albums'
+          route: 'album_index'

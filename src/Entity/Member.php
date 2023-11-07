@@ -24,8 +24,9 @@ class Member
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $pseudo = null;
 
-    #[ORM\OneToMany(mappedBy: 'member', targetEntity: Album::class)]
-    private Collection $albums;
+    #[ORM\OneToOne(inversedBy: 'member', cascade: ['persist', 'remove'])]
+    private ?Album $album = null;
+
 
     public function __construct()
     {
@@ -90,29 +91,14 @@ class Member
     /** Gestion des collections
      * @return Collection<int, Album>
      */
-    public function getAlbums(): Collection
+    public function getAlbum(): ?Album
     {
-        return $this->albums;
+        return $this->album;
     }
 
-    public function addAlbum(Album $album): static
+    public function setAlbum(?Album $album): static
     {
-        if (!$this->albums->contains($album)) {
-            $this->albums->add($album);
-            $album->setMember($this);
-        }
-
-        return $this;
-    }
-
-    public function removeAlbum(Album $album): static
-    {
-        if ($this->albums->removeElement($album)) {
-            // set the owning side to null (unless already changed)
-            if ($album->getMember() === $this) {
-                $album->setMember(null);
-            }
-        }
+        $this->album = $album;
 
         return $this;
     }

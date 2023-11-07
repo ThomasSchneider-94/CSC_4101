@@ -17,12 +17,12 @@ class Album
 
     #[ORM\Column(length: 255)]
     private ?string $nom = null;
-    
-    #[ORM\ManyToOne(inversedBy: 'albums')]
-    private ?Member $member = null;
 
     #[ORM\OneToMany(mappedBy: 'album', targetEntity: Generique::class)]
     private Collection $generiques;
+
+    #[ORM\OneToOne(mappedBy: 'album', cascade: ['persist', 'remove'])]
+    private ?Member $member = null;
 
     public function __construct()
     {
@@ -52,17 +52,6 @@ class Album
     }
 
     /* Gestion du propriétaire */
-    public function getMember(): ?Member
-    {
-        return $this->member;
-    }
-    
-    public function setMember(?Member $member): static
-    {
-        $this->member = $member;
-        
-        return $this;
-    }
     
     /** Gestion des génériques
      * @return Collection<int, Generique>
@@ -93,4 +82,28 @@ class Album
 
         return $this;
     }
+
+    public function getMember(): ?Member
+    {
+        return $this->member;
+    }
+
+    public function setMember(?Member $member): static
+    {
+        // unset the owning side of the relation if necessary
+        if ($member === null && $this->member !== null) {
+            $this->member->setAlbum(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($member !== null && $member->getAlbum() !== $this) {
+            $member->setAlbum($this);
+        }
+
+        $this->member = $member;
+
+        return $this;
+    }
+
+
 }
