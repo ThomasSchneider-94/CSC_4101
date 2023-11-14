@@ -25,9 +25,12 @@ class MemberCrudController extends AbstractCrudController
             TextField::new('nom'),
             TextField::new('prenom'),
             TextField::new('pseudo'),
-            AssociationField::new('albums')
+            AssociationField::new('album')
             ->onlyOnDetail()
-            ->setTemplatePath('admin/fields/member_albums.html.twig')
+            ->setTemplatePath('admin/fields/member_albums.html.twig'),
+            AssociationField::new('playlists')
+            ->onlyOnDetail()
+            ->setTemplatePath('admin/fields/member_playlist.html.twig')
         ];
     }
     

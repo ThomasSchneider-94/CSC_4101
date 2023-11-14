@@ -11,6 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Album;
 use App\Entity\Generique;
 use App\Entity\Member;
+use App\Entity\Playlist;
 
 class DashboardController extends AbstractDashboardController
 {
@@ -35,5 +36,6 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Albums', 'fas fa-list', Album::class);
         yield MenuItem::linkToCrud('Generiques', 'fas fa-list', Generique::class);
         yield MenuItem::linkToCrud('Membres', 'fas fa-list', Member::class);
+        yield MenuItem::linkToCrud('Playlists', 'fas fa-list', Playlist::class);
     }
 }

@@ -27,10 +27,14 @@ class Member
     #[ORM\OneToOne(inversedBy: 'member', cascade: ['persist', 'remove'])]
     private ?Album $album = null;
 
+    #[ORM\OneToMany(mappedBy: 'creator', targetEntity: Playlist::class)]
+    private Collection $playlists;
 
     public function __construct()
     {
         $this->albums = new ArrayCollection();
+        $this->generiques = new ArrayCollection();
+        $this->playlists = new ArrayCollection();
     }
     
     public function __toString() {
@@ -99,6 +103,36 @@ class Member
     public function setAlbum(?Album $album): static
     {
         $this->album = $album;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Playlist>
+     */
+    public function getPlaylists(): Collection
+    {
+        return $this->playlists;
+    }
+
+    public function addPlaylist(Playlist $playlist): static
+    {
+        if (!$this->playlists->contains($playlist)) {
+            $this->playlists->add($playlist);
+            $playlist->setCreator($this);
+        }
+
+        return $this;
+    }
+
+    public function removePlaylist(Playlist $playlist): static
+    {
+        if ($this->playlists->removeElement($playlist)) {
+            // set the owning side to null (unless already changed)
+            if ($playlist->getCreator() === $this) {
+                $playlist->setCreator(null);
+            }
+        }
 
         return $this;
     }

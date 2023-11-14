@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\GeneriqueRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: GeneriqueRepository::class)]
@@ -30,6 +32,14 @@ class Generique
 
     #[ORM\ManyToOne(inversedBy: 'generiques')]
     private ?Album $album = null;
+
+    #[ORM\ManyToMany(targetEntity: Playlist::class, mappedBy: 'generiques')]
+    private Collection $playlists;
+
+    public function __construct()
+    {
+        $this->playlists = new ArrayCollection();
+    }
     
     public function __toString() {
         return $this->anime." - ".$this->type." ".$this->numero;
@@ -121,6 +131,33 @@ class Generique
     public function setAlbum(?Album $album): static
     {
         $this->album = $album;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Playlist>
+     */
+    public function getPlaylists(): Collection
+    {
+        return $this->playlists;
+    }
+
+    public function addPlaylist(Playlist $playlist): static
+    {
+        if (!$this->playlists->contains($playlist)) {
+            $this->playlists->add($playlist);
+            $playlist->addGenerique($this);
+        }
+
+        return $this;
+    }
+
+    public function removePlaylist(Playlist $playlist): static
+    {
+        if ($this->playlists->removeElement($playlist)) {
+            $playlist->removeGenerique($this);
+        }
 
         return $this;
     }
