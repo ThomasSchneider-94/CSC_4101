@@ -23,14 +23,12 @@
                 <th>Publiee</th>
                 <td>{{ playlist.publiee ? 'Yes' : 'No' }}</td>
             </tr>
-            <h2>[Objets]</h2>
-				<ul>
-				   {% for generique in playlist.generiques %}
-				   <li>
-				     <a href="{{ path('playlist_generique_show', {'playlist_id': playlist.id, 'generique_id' : generique.id}) }}">{{ generique }}</a>
-				   </li>
-				   {% endfor %}
-				</ul>
+            {% for generique in playlist.generiques %}
+	              <tr>
+	                  <th> {{ loop.first ? "Liste des génériques" : "" }} </th>
+	                  <td><li><a href="{{ path('generique_show', {'id': generique.id}) }}">{{ generique }}</a></li></td>
+	              </tr>
+            {% endfor %} {# playlist #}
         </tbody>
     </table>
 
