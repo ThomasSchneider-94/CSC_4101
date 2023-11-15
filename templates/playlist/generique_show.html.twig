@@ -27,16 +27,12 @@
                   <td>{{ generique.artiste }}</td>
               </tr>
               <tr>
-                  <th>Album</th>
-                  <td><a href="{{ path('album_show', {'id': generique.album.id}) }}">{{ generique.album }}</a></td>
-              </tr>
-              <tr>
                   <th>Propriétaire</th>
                   <td>{{ generique.album.member }}</td>
               </tr>
           </tbody>
       </table>
       
-      <a href="{{ path('album_show', { 'id': generique.album.id}) }}">Retour à l'album</a>
+      <a href="{{ path('playlist_show', { 'id': playlist.id}) }}">Retour à la playlist</a>
 
 {% endblock %} {# body #}

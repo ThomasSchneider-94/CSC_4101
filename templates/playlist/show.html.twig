@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Playlist{% endblock %}
+
+{% block body %}
+    <h1>Playlist</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ playlist.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ playlist.nom }}</td>
+            </tr>
+            <tr>
+                <th>Propriétaire</th>
+                <td>{{ playlist.creator }}</td>
+            </tr>
+            <tr>
+                <th>Publiee</th>
+                <td>{{ playlist.publiee ? 'Yes' : 'No' }}</td>
+            </tr>
+            <h2>[Objets]</h2>
+				<ul>
+				   {% for generique in playlist.generiques %}
+				   <li>
+				     <a href="{{ path('playlist_generique_show', {'playlist_id': playlist.id, 'generique_id' : generique.id}) }}">{{ generique }}</a>
+				   </li>
+				   {% endfor %}
+				</ul>
+        </tbody>
+    </table>
+
+    <a href="{{ path('playlist_index') }}">back to list</a>
+
+    <a href="{{ path('playlist_edit', {'id': playlist.id}) }}">edit</a>
+
+    {{ include('playlist/_delete_form.html.twig') }}
+{% endblock %}
