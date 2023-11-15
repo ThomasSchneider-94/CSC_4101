@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+      <h1>MEMBER</h1>
+
+         {% dump member %}
+
+      <table class="table">
+          <tbody>
+              <tr>
+                  <th>Id</th>
+                  <td>{{ member.id }}</td>
+              </tr>
+              <tr>
+                  <th>Nom</th>
+                  <td>{{ member.nom }}</td>
+              </tr>
+              <tr>
+                  <th>Prénom</th>
+                  <td>{{ member.prenom }}</td>
+              </tr>
+              <tr>
+                  <th>Pseudo</th>
+                  <td>{{ member.pseudo }}</td>
+              </tr>
+              {% for album in member.albums %}
+	              <tr>
+	                  <th> {{ loop.first ? "Liste des albums" : "" }} </th>
+	                  <td><li><a href="{{ path('album_show', {'id': album.id}) }}">{{ album }}</a></li></td>
+	              </tr>
+              {% endfor %} {# member #}
+              <tr>
+                  <th></th>
+                  <td><a href="{{ path('album_new', {'id': member.id}) }}">Créer un nouvel album</a></td>
+              </tr>
+              
+              
+              {% for playlist in member.playlists %}
+	              <tr>
+	                  <th> {{ loop.first ? "Liste des playlists" : "" }} </th>
+	                  <td><li><a href="{{ path('playlist_show', {'id': playlist.id}) }}">{{ playlist }}</a></li></td>
+	              </tr>
+              {% endfor %} {# member #}
+              <tr>
+                  <th></th>
+                  <td><a href="{{ path('playlist_new', {'id': member.id}) }}">Créer une nouvelle playlist</a></td>
+              </tr>
+            </tbody>
+      </table>
+
+      <a href="{{ path('member_index') }}">Retour à la liste des membres</a>
+
+{% endblock %} {# body #}

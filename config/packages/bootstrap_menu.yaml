@@ -1,7 +1,17 @@
 bootstrap_menu:
   menus:
     main:
+    anonymousaccount:
       items:
-        albums:
-          label: 'Albums'
-          route: 'album_index'
+        login:
+            label: 'Login'
+            route: 'login'
+        register:
+           label: 'Sign in'
+           route: 'register'
+    account:
+      items:
+         logout:
+            label: 'Logout'
+            route: 'logout'
+            roles: [ 'ROLE_USER' ]

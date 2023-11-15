@@ -24,9 +24,13 @@
 	                  <td><li><a href="{{ path('generique_show', {'id': generique.id}) }}">{{ generique }}</a></li></td>
 	              </tr>
               {% endfor %} {# album #}
+              <tr>
+                  <th></th>
+                  <td><a href="{{ path('generique_new', {'id': album.id}) }}">Créer un nouveau générique</a></td>
+              </tr>
           </tbody>
       </table>
 
-      <a href="{{ path('album_index') }}">Retour à la liste des albums</a>
+      <a href="{{ path('member_show', {'id': album.member.id}) }}">Retour au profil utilisateur</a>
 
 {% endblock %} {# body #}

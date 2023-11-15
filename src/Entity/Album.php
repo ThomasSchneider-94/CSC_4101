@@ -21,7 +21,7 @@ class Album
     #[ORM\OneToMany(mappedBy: 'album', targetEntity: Generique::class)]
     private Collection $generiques;
 
-    #[ORM\OneToOne(mappedBy: 'album', cascade: ['persist', 'remove'])]
+    #[ORM\ManyToOne(inversedBy: 'albums')]
     private ?Member $member = null;
 
     public function __construct()
@@ -90,16 +90,6 @@ class Album
 
     public function setMember(?Member $member): static
     {
-        // unset the owning side of the relation if necessary
-        if ($member === null && $this->member !== null) {
-            $this->member->setAlbum(null);
-        }
-
-        // set the owning side of the relation if necessary
-        if ($member !== null && $member->getAlbum() !== $this) {
-            $member->setAlbum($this);
-        }
-
         $this->member = $member;
 
         return $this;

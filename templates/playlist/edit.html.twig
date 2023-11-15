@@ -3,11 +3,11 @@
 {% block title %}Edit Playlist{% endblock %}
 
 {% block body %}
-    <h1>Edit Playlist</h1>
+    <h1>Edition de la Playlist</h1>
 
     {{ include('playlist/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('playlist_index') }}">back to list</a>
+    <a href="{{ path('playlist_show', {'id': playlist.id}) }}">Retour à la playlist</a>
 
     {{ include('playlist/_delete_form.html.twig') }}
 {% endblock %}

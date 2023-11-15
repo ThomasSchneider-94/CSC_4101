@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des membres{% endblock %}
+
+{% block body %}
+<h1>Liste des membre</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nom</th>
+        </tr>
+    </thead>
+    <tbody>
+		{% for member in members %}
+        <tr>
+            <td>{{ member.id }}</td>
+            <td><a href="{{ path('member_show', {'id': member.id}) }}">{{ member }}</a></td>
+        </tr>
+        {% endfor %} {# todos #}
+    </tbody>
+</table>
+
+{% endblock %} {# body #}

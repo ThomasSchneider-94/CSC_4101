@@ -7,5 +7,5 @@
 
     {{ include('playlist/_form.html.twig') }}
 
-    <a href="{{ path('playlist_index') }}">back to list</a>
+    <a href="{{ path('member_show', {'id': playlist.creator.id}) }}">Retour au profil utilisateur</a>
 {% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Generique{% endblock %}
+
+{% block body %}
+    <h1>Creation d'un nouveau générique</h1>
+
+    {{ include('generique/_form.html.twig') }}
+
+    <a href="{{ path('album_show', {'id': generique.album.id}) }}">Retour à l'album</a>
+{% endblock %}

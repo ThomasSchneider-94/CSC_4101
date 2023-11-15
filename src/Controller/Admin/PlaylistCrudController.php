@@ -11,6 +11,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
+use Doctrine\ORM\QueryBuilder;
 
 class PlaylistCrudController extends AbstractCrudController
 {
@@ -35,8 +36,9 @@ class PlaylistCrudController extends AbstractCrudController
                 // on ne souhaite pas gérer l'association entre les
                 // [objets] et la [galerie] dès la crétion de la
                 // [galerie]
+
                 ->hideWhenCreating()
-                ->setTemplatePath('admin/fields/album_generique.html.twig')
+                ->setTemplatePath('admin/fields/album_generiques.html.twig')
                 // Ajout possible seulement pour des [objets] qui
                 // appartiennent même propriétaire de l'[inventaire]
                 // que le [createur] de la [galerie]
@@ -48,7 +50,7 @@ class PlaylistCrudController extends AbstractCrudController
                         $memberId = $creator->getId();
                         // charge les seuls [objets] dont le 'owner' de l'[inventaire] est le [createur] de la galerie
                         $queryBuilder->leftJoin('entity.album', 'i')
-                            ->leftJoin('i.owner', 'm')
+                            ->leftJoin('i.member', 'm')
                             ->andWhere('m.id = :member_id')
                             ->setParameter('member_id', $memberId);    
                         return $queryBuilder;

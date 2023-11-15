@@ -28,7 +28,7 @@
               </tr>
               <tr>
                   <th>Album</th>
-                  <td><a href="{{ path('album_show', {'id': generique.album.id}) }}">{{ generique.album }}</a></td>
+                  <td>{{ generique.album }}</td>
               </tr>
               <tr>
                   <th>Propriétaire</th>
@@ -36,7 +36,7 @@
               </tr>
           </tbody>
       </table>
-      
+           
       <a href="{{ path('album_show', { 'id': generique.album.id}) }}">Retour à l'album</a>
 
 {% endblock %} {# body #}

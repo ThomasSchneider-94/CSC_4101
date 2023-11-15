@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Playlist;
 use App\Entity\Generique;
+use App\Entity\Member;
 use App\Form\PlaylistType;
 use App\Repository\PlaylistRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -24,18 +25,23 @@ class PlaylistController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'playlist_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    #[Route('/new/{id}', name: 'playlist_new', methods: ['GET', 'POST'])]
+    public function new(Request $request, EntityManagerInterface $entityManager, Member $member): Response
     {
         $playlist = new Playlist();
+        $playlist->setCreator($member);
         $form = $this->createForm(PlaylistType::class, $playlist);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($playlist);
             $entityManager->flush();
+            
+            // Make sure message will be displayed after redirect
+            $this->addFlash('message', 'Playlist créee');
+            // $this->addFlash() is equivalent to $request->getSession()->getFlashBag()->add()
 
-            return $this->redirectToRoute('playlist_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('playlist_show', ['id' => $playlist->getId()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('playlist/new.html.twig', [
@@ -61,7 +67,7 @@ class PlaylistController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('playlist_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('playlist_show', ['id' => $playlist->getId()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('playlist/edit.html.twig', [
@@ -82,16 +88,20 @@ class PlaylistController extends AbstractController
     }
     
     #[Route('/{playlist_id}/generique/{generique_id}', methods: ['GET'], name: 'playlist_generique_show')]
-    public function generiqueShow(
-        #[MapEntity(id: 'playlist_id')]
-        Playlist $playlist,
-        #[MapEntity(id: 'generique_id')]
-        Generique $generique
-        ): Response
-        {
-            return $this->render('playlist/generique_show.html.twig', [
-                'generique' => $generique,
-                'playlist' => $playlist
-            ]);
+    public function generiqueShow(#[MapEntity(id: 'playlist_id')] Playlist $playlist,
+        #[MapEntity(id: 'generique_id')] Generique $generique): Response
+    {
+        if(! $playlist->getGeneriques()->contains($generique)) {
+            throw $this->createNotFoundException("Couldn't find such a [objet] in this [galerie]!");
+        }
+        
+        if(! $playlist->isPubliee()) {
+            throw $this->createAccessDeniedException("You cannot access the requested ressource!");
+        }
+        
+        return $this->render('playlist/generique_show.html.twig', [
+            'generique' => $generique,
+            'playlist' => $playlist
+        ]);
     }
 }
